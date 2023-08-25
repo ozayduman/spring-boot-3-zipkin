@@ -53,13 +53,9 @@ class DemoApplicationTests {
 			restTemplate.getForObject("http://localhost:%s/status".formatted(port), String.class);
 		});
 		String status = restTemplate.getForObject("http://localhost:%s/status".formatted(port), String.class);
-		System.err.println(status);
 		Assertions.assertEquals("OK", status);
-		System.err.println("http://localhost:%s/status".formatted(port));
-
-
 		String zipkinResult = restTemplate.getForObject("http://localhost:%s/api/v2/spans?serviceName=spring-micrometer-tracing-demo".formatted(getPort()), String.class);
-		System.err.println(zipkinResult);
+		Assertions.assertFalse("[]".equals(zipkinResult));
 		sleep(90);
 	}
 
